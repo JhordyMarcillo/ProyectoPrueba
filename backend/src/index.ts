@@ -123,18 +123,18 @@ const startServer = async () => {
     // Verificar conexión a la base de datos
     const dbConnected = await testConnection();
     if (!dbConnected) {
-      //('❌ No se pudo conectar a la base de datos');
+      //(' No se pudo conectar a la base de datos');
       process.exit(1);
     }
 
     app.listen(config.port, () => {
-      //(`🚀 Servidor ejecutándose en puerto ${config.port}`);
+      //(` Servidor ejecutándose en puerto ${config.port}`);
       //(`📚 Documentación disponible en http://localhost:${config.port}/api-docs`);
       //(`🏥 Health check en http://localhost:${config.port}/health`);
       //(`🌍 Entorno: ${config.nodeEnv}`);
     });
   } catch (error) {
-    //('❌ Error al iniciar el servidor:', error);
+    //(' Error al iniciar el servidor:', error);
     process.exit(1);
   }
 };

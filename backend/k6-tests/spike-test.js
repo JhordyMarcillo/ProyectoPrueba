@@ -125,7 +125,7 @@ export function handleSummary(data) {
     return {
         'spike-test-results.json': JSON.stringify(data, null, 2),
         stdout: `
-🚀 SPIKE TEST RESULTS
+ SPIKE TEST RESULTS
 Peak Concurrent Users: ${maxVUs}
 Total Requests: ${totalRequests}
 Request Rate: ${requestRate} req/s

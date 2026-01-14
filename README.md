@@ -1,102 +1,150 @@
-# SPA Modern - Sistema de Administración
+# ProyectoPrueba – Pruebas de carga con k6 y GitHub Actions
 
-Esta es una versión modernizada del Sistema de Administración SPA, construida con:
+Este repositorio contiene un proyecto **full-stack utilizado como entorno de pruebas de rendimiento**, donde se aplican **pruebas de carga con k6** integradas en **GitHub Actions** como parte de un flujo CI/CD.
 
-- **Backend**: Node.js + Express + TypeScript
-- **Frontend**: Angular 17
-- **Base de datos**: MySQL
-- **Autenticación**: JWT
-- **Pruebas**: Jest (Backend) + Jasmine/Karma (Frontend)
+El objetivo principal es demostrar:
+- Cómo estructurar pruebas de carga
+- Cómo automatizarlas en un pipeline
+- Cómo interpretar métricas de rendimiento
 
-## Estructura del Proyecto
+---
 
-```
-spa-modern/
-├── backend/          # API REST en Node.js/Express
-├── frontend/         # Aplicación Angular
-├── database/         # Scripts de base de datos
-└── README.md         # Este archivo
-```
+## 📌 Descripción
 
-## Funcionalidades
+El proyecto incluye una aplicación backend y frontend que sirven como sistema bajo prueba, sobre el cual se ejecutan **tests de carga con k6** para evaluar:
 
-- ✅ Sistema de autenticación y autorización con JWT
-- ✅ Gestión de usuarios y perfiles
-- ✅ Administración de clientes
-- ✅ Gestión de productos e inventario
-- ✅ Sistema de ventas
-- ✅ Gestión de servicios
-- ✅ Administración de proveedores
-- ✅ Reportes y estadísticas
-- ✅ Sistema de auditoría (cambios)
-- ✅ API REST completa
-- ✅ Pruebas unitarias
-- ✅ Interfaz moderna y responsiva
+- Número de usuarios virtuales (VU)
+- Latencia de respuesta
+- Estabilidad bajo carga
+- Porcentaje de solicitudes exitosas
 
-## Instalación y Configuración
+Las pruebas se ejecutan automáticamente mediante **GitHub Actions** en eventos como push o pull request.
+
+---
+
+## 🧰 Tecnologías y herramientas
+
+- **k6** – pruebas de carga y rendimiento  
+- **GitHub Actions** – automatización CI/CD  
+- **Node.js / Express** – backend de prueba  
+- **Angular** – frontend de prueba  
+- **JavaScript (ES Modules)**  
+- **Firebase Hosting** (para despliegue del frontend)
+
+---
+
+## 🚀 Cómo usar este proyecto
 
 ### Prerrequisitos
 
-- Node.js 18+
-- Angular CLI 17+
-- MySQL 8.0+
-- npm o yarn
+- k6 instalado localmente  
+- Node.js 18+  
+- npm  
 
-### Backend
+> Angular y base de datos se usan solo como entorno de prueba, no son obligatorios para ejecutar k6.
 
+---
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/JhordyMarcillo/ProyectoPrueba.git
+cd ProyectoPrueba
+```
+
+### 2. Iniciar en backend
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-
-### Frontend
-
+### 3. Iniciar en frontend
 ```bash
 cd frontend
 npm install
 ng serve
 ```
 
-### Base de Datos
-
-1. Crear base de datos MySQL llamada `spa_modern`
-2. Ejecutar el script de migración:
+### 4. Ejecutar pruebas de k6 localmente
+Asumiendo que tienes instalado k6, puedes correr:
 
 ```bash
-cd database
-# Ejecutar el archivo init.sql en MySQL
+k6 run script.js
 ```
 
-## Desarrollo
-
-### Backend API
-
-- **Puerto**: 3000
-- **Documentación**: http://localhost:3000/api-docs
-- **Base URL**: http://localhost:3000/api
-
-### Frontend
-
-- **Puerto**: 4200
-- **URL**: http://localhost:4200
-
-## Testing
-
-### Backend
-```bash
-cd backend
-npm test
-npm run test:coverage
+## 📁 Estructura del proyecto
+```text
+ProyectoPrueba/
+├── .github/workflows/         # Configuraciones de GitHub Actions
+│   └── firebase-hosting-merge.yml
+|   └── firebase-hosting-pull-request.yml     
+|   └── main.yml           
+├── backend/                   # Scripts de backend
+│   └── k6-test  
+│   └── src
+│        └── config
+│        └── controllers         
+│        └── middleware
+│        └── models
+│        └── routes
+│        └── test
+│        └── types
+│   └── otros archivos
+├── frontend/                   # Scripts de frontend
+│   └── src
+│        └── app
+│        └── assets
+│        └── enviroments
+│        └── otros archivos
+├── README.md                  # Documentación del proyecto
+├── package.json               # Dependencias y scripts (opcional)
+└── otros archivos           
 ```
 
-### Frontend
-```bash
-cd frontend
-ng test
-ng e2e
+## 🧪 Integración con GitHub Actions
+Este proyecto incluye un flujo en .github/workflows que:
+
+- Instala k6 en el runner.
+- Ejecuta uno o varios scripts de prueba.
+- Muestra resultados en la consola de acciones de GitHub.
+
+### Ejemplo mínimo de configuración:
+
+```yaml
+name: k6 Performance Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-k6-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup k6
+        uses: grafana/setup-k6@v1
+      - name: Run k6 tests
+        run: k6 run scripts/load-test.js
+
 ```
+Así puedes automatizar pruebas y comprobar métricas clave sin intervención manual. 
+DeepWiki
 
-## Licencia
+## 📊 Métricas evaluadas
+Cuando se ejecutan pruebas de rendimiento con k6, normalmente se obtienen métricas como:
 
-MIT
+- **http_req_duration**: latencia de las solicitudes.
+- **vus**: cantidad de usuarios virtuales.
+- **checks**: porcentaje de transacciones exitosas.
+
+## 📝 Licencia
+
+Este proyecto está protegido bajo una licencia propietaria.
+No se permite el uso, modificación ni redistribución del código sin autorización expresa del autor.
+
+Consulta el archivo LICENSE para más detalles.
+

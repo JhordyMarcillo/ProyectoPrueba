@@ -48,15 +48,15 @@ export default function () {
 export function handleSummary(data) {
     return {
         stdout: `
-🚀 QUICK DEV TEST RESULTS 🚀
+ QUICK DEV TEST RESULTS 
 ============================
 Requests: ${data.metrics.http_reqs.values.count}
 Failures: ${(data.metrics.http_req_failed.values.rate * 100).toFixed(2)}%
 Avg Time: ${data.metrics.http_req_duration.values.avg.toFixed(2)}ms
 95th %ile: ${data.metrics.http_req_duration.values['p(95)'].toFixed(2)}ms
 
-${data.metrics.http_req_failed.values.rate < 0.01 ? '✅ Sistema estable' : '⚠️ Revisar errores'}
-${data.metrics.http_req_duration.values['p(95)'] < 500 ? '✅ Tiempos buenos' : '⚠️ Tiempos elevados'}
+${data.metrics.http_req_failed.values.rate < 0.01 ? ' Sistema estable' : ' Revisar errores'}
+${data.metrics.http_req_duration.values['p(95)'] < 500 ? ' Tiempos buenos' : ' Tiempos elevados'}
 ============================
 `,
     };
